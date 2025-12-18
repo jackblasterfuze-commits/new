@@ -504,7 +504,7 @@
         // Initialize projects grid with 12 items
         const projectsGrid = document.getElementById('projectsGrid');
         const projectData = [
-            { title: "Mobile App UI", desc: "Modern UI design for a fitness tracking application", img: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example1" },
+            { title: "Mobile App UI", desc: "Modern UI design for a fitness tracking application", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/saiko%201.jpeg", link: "https://drive.google.com/file/d/example1" },
             { title: "E-commerce Website", desc: "Full-stack e-commerce platform with payment integration", img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example2" },
             { title: "Brand Identity", desc: "Complete branding package for a tech startup", img: "https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example3" },
             { title: "Dashboard Design", desc: "Analytics dashboard with real-time data visualization", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example4" },
