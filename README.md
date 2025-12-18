@@ -505,7 +505,7 @@
         const projectsGrid = document.getElementById('projectsGrid');
         const projectData = [
             { title: "Dhana yellow pappa logo", desc: "❌රුපියල් 100", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/saiko%201.jpeg", link: "https://drive.google.com/file/d/10BXV0rRV47V0VV1_U-yOIw3dUSXaTIVb/view?usp=drivesdk" },
-            { title: "E-commerce Website", desc: "Full-stack e-commerce platform with payment integration", img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example2" },
+            { title: "E-commerce Website", desc: "Full-stack e-commerce platform with payment integration", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/6.jpeg", link: "https://drive.google.com/file/d/1-Cfa79dpSzu32l46Y8aEIqWpdOtt_uPS/view?usp=drivesdk" },
             { title: "Brand Identity", desc: "Complete branding package for a tech startup", img: "https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example3" },
             { title: "Dashboard Design", desc: "Analytics dashboard with real-time data visualization", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example4" },
             { title: "Game Concept", desc: "Concept art and design for a mobile adventure game", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example5" },
