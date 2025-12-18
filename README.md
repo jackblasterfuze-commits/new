@@ -29,7 +29,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://www.shutterstock.com/image-photo/blurred-background-vibrant-creative-gaming-600nw-2655956027.jpg');
+            background-image: url('https://wallpapers.com/images/hd/red-black-background-h18bb4lw1nyraagm.jpg');
             background-size: cover;
             background-position: center;
             filter: blur(8px);
@@ -453,7 +453,7 @@
                 <div class="about-content">
                     <h2 class="about-title">About Dana on Fire</h2>
                     <p class="about-text">
-                        Welcome to <span class="about-highlight">Dana on Fire</span>, a creative studio dedicated to bringing innovative digital projects to life. We specialize in developing cutting-edge applications, immersive web experiences, and engaging digital content that pushes the boundaries of technology and design.
+                        Welcome to <span class="about-highlight">Dana on Fire</span>, a creative studio dedicated to bringing innovative digital projects.
                     </p>
                     <p class="about-text">
                         Our team of passionate developers, designers, and creators work together to transform ideas into reality. With a focus on user experience and modern aesthetics, we craft solutions that are not only functional but also visually stunning.
@@ -504,7 +504,7 @@
         // Initialize projects grid with 12 items
         const projectsGrid = document.getElementById('projectsGrid');
         const projectData = [
-            { title: "Mobile App UI", desc: "Modern UI design for a fitness tracking application", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/saiko%201.jpeg", link: "https://drive.google.com/file/d/example1" },
+            { title: "Dhana yellow pappa logo", desc: "❌රුපියල් 100", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/saiko%201.jpeg", link: "https://drive.google.com/file/d/10BXV0rRV47V0VV1_U-yOIw3dUSXaTIVb/view?usp=drivesdk" },
             { title: "E-commerce Website", desc: "Full-stack e-commerce platform with payment integration", img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example2" },
             { title: "Brand Identity", desc: "Complete branding package for a tech startup", img: "https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example3" },
             { title: "Dashboard Design", desc: "Analytics dashboard with real-time data visualization", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example4" },
