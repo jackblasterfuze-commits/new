@@ -456,7 +456,10 @@
                         Welcome to <span class="about-highlight">Dana on Fire</span>, a creative studio dedicated to bringing innovative digital projects.
                     </p>
                     <p class="about-text">
-                        Our team of passionate developers, designers, and creators work together to transform ideas into reality. With a focus on user experience and modern aesthetics, we craft solutions that are not only functional but also visually stunning.
+                        පූරුවේ කරපු අකුසල්                                    ගෙවන්නට
+පාරුවේ ඇවිත් විය දුක්                                     විඳින්නට
+මාරුවේ අවල අදිමින් විටින්                                      විට
+සීරුවේ බසිමු ගොස් තුන්                                  මෝදරට
                     </p>
                     <p class="about-text">
                         Founded in 2020, we've successfully delivered over 50 projects to clients worldwide, ranging from startups to established enterprises. Our commitment to quality, innovation, and client satisfaction drives everything we do.
