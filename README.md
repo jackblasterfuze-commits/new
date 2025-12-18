@@ -413,8 +413,8 @@
                             <i class="fas fa-phone"></i>
                         </div>
                         <div class="contact-title">Phone</div>
-                        <div class="contact-value">+1 (555) 123-4567</div>
-                        <a href="tel:+15551234567" class="contact-action">Call Now</a>
+                        <div class="contact-value">0741048179</div>
+                        <a href="tel:+94741048179" class="contact-action">Call Now</a>
                     </div>
                     
                     <!-- WhatsApp card -->
@@ -423,7 +423,7 @@
                             <i class="fab fa-whatsapp"></i>
                         </div>
                         <div class="contact-title">WhatsApp</div>
-                        <div class="contact-value">+1 (555) 123-4567</div>
+                        <div class="contact-value">+94741048179</div>
                         <a href="https://wa.me/15551234567" class="contact-action" target="_blank">Chat on WhatsApp</a>
                     </div>
                     
@@ -433,7 +433,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="contact-title">Location</div>
-                        <div class="contact-value">San Francisco, CA</div>
+                        <div class="contact-value">srilanka</div>
                         <a href="https://maps.google.com/?q=San+Francisco" class="contact-action" target="_blank">View on Map</a>
                     </div>
                 </div>
@@ -462,10 +462,10 @@
 සීරුවේ බසිමු ගොස් තුන්                                  මෝදරට
                     </p>
                     <p class="about-text">
-                        Founded in 2020, we've successfully delivered over 50 projects to clients worldwide, ranging from startups to established enterprises. Our commitment to quality, innovation, and client satisfaction drives everything we do.
+                        සූර්යයා යනු අපගේ සෞරග්‍රහ මණ්ඩලයේ මධ්‍යයේ ඇති විශාල තාරකාවකි. එය ප්‍රධාන වශයෙන් හයිඩ්‍රජන් හා හීලියම් වලින් සෑදුණු අතිශයින් රත් වූ වායු ගෝලයකි (ප්ලාස්මා). එහි ඇති ගුරුත්වාකර්ෂණ බලය හේතුවෙන් ග්‍රහලෝක, ග්‍රහක හා අනෙකුත් වස්තූන් එය වටා කක්ෂගත වී ඇත.
                     </p>
                     <p class="about-text">
-                        Explore our projects to see examples of our work, or get in touch to discuss how we can help bring your vision to life!
+                       Free Fire තරගකාරී ක්‍රීඩාවක් වුවද, එය මිතුරන් සමග සම්බන්ධ වීමට, එකට කණ්ඩායම් වශයෙන් ක්‍රියා කිරීමට හා සහයෝගයෙන් කටයුතු කිරීමට හොඳ වේදියක් සපයයි.
                     </p>
                 </div>
             </div>
@@ -510,15 +510,16 @@
             { title: "Dhana yellow pappa logo", desc: "❌රුපියල් 100", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/saiko%201.jpeg", link: "https://drive.google.com/file/d/10BXV0rRV47V0VV1_U-yOIw3dUSXaTIVb/view?usp=drivesdk" },
             { title: "farad", desc: "⭕dialog data card", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/6.jpeg", link: "https://drive.google.com/file/d/1-Cfa79dpSzu32l46Y8aEIqWpdOtt_uPS/view?usp=drivesdk" },
             { title: "tollak", desc: "*❌රුපියල් 100*", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/1.jpeg", link: "https://drive.google.com/file/d/10J1LDCVuIwo74r7HV0-glAkAEO7UnIVh/view?usp=drivesdk" },
-            { title: "kolla", desc: "⭕dialog data card", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/4.jpeg", link: "https://drive.google.com/file/d/example4" },
-            { title: "Game Concept", desc: "Concept art and design for a mobile adventure game", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example5" },
-            { title: "AR Experience", desc: "Augmented reality app for interior design visualization", img: "https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example6" },
-            { title: "Social Media Kit", desc: "Template pack for consistent social media branding", img: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example7" },
-            { title: "Mobile Game UI", desc: "User interface design for a puzzle mobile game", img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example8" },
-            { title: "Web Application", desc: "Responsive web app for project management", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example9" },
-            { title: "Logo Collection", desc: "Set of 50 modern logo designs for various industries", img: "https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example10" },
-            { title: "Animation Pack", desc: "Collection of Lottie animations for mobile apps", img: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example11" },
-            { title: "Icon Set", desc: "500+ pixel-perfect icons in multiple styles", img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example12" }
+            { title: "kolla", desc: "⭕dialog data card", img: "<img width="1280" height="853" alt="image" src="https://github.com/user-attachments/assets/4b20c798-1e6a-400d-ac47-7409011a7ba2" />
+", link: "https://drive.google.com/file/d/example4" },
+            { title: "201", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example5" },
+            { title: "301", desc: "Content not found", img: "https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example6" },
+            { title: "475", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example7" },
+            { title: "532", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example8" },
+            { title: "412", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example9" },
+            { title: "865", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example10" },
+            { title: "4725", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example11" },
+            { title: "4785", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example12" }
         ];
         
         // Function to switch tabs
