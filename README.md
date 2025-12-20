@@ -161,60 +161,85 @@
             animation: fadeIn 0.3s ease;
         }
 
-        /* UPDATED: User Profile - Positioned on top right but not overlapping logo */
+        /* UPDATED: User Profile - Positioned on top right with proper spacing */
         .user-profile {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            padding: 8px 15px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 6px 12px 6px 6px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            max-width: 180px;
         }
 
         .user-avatar {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            background: rgba(255, 87, 34, 0.2);
+            background: rgba(255, 87, 34, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
+            font-size: 14px;
+            border: 1.5px solid rgba(255, 87, 34, 0.5);
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            flex: 1;
         }
 
         .user-name {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 120px;
+            line-height: 1.2;
+        }
+
+        .user-email {
+            font-size: 10px;
+            opacity: 0.7;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
         }
 
         .logout-btn {
             background: rgba(255, 87, 34, 0.2);
             color: #ff5722;
             border: none;
-            padding: 6px 12px;
-            border-radius: 15px;
+            padding: 5px 10px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 12px;
+            font-size: 11px;
             flex-shrink: 0;
+            margin-left: 4px;
         }
 
         .logout-btn:hover {
-            background: rgba(255, 87, 34, 0.3);
+            background: rgba(255, 87, 34, 0.35);
         }
 
         /* Success Message */
@@ -294,40 +319,60 @@
             overflow: hidden;
         }
 
-        /* Header with logo - Updated to accommodate user profile */
+        /* Header with logo - Updated for mobile friendly layout */
         .header {
-            padding: 20px 15px 10px;
-            text-align: center;
+            padding: 15px 15px 10px;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             z-index: 10;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            min-height: 70px;
+            min-height: 60px;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-size: 28px;
+            gap: 10px;
+            font-size: 24px;
             font-weight: 900;
-            margin: 0 auto;
+            text-decoration: none;
+            color: white;
+            white-space: nowrap;
         }
 
         .logo-icon {
             color: #ff5722;
-            font-size: 34px;
+            font-size: 28px;
             animation: flicker 2s infinite alternate;
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         @keyframes flicker {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.8; }
+        }
+
+        /* Header spacer to balance the layout */
+        .header-spacer {
+            width: 180px;
+            flex-shrink: 0;
         }
 
         /* Tab content area */
@@ -602,33 +647,83 @@
                 padding: 30px 20px;
             }
             
-            .user-profile {
-                top: 15px;
-                right: 10px;
-                padding: 6px 10px;
+            /* Mobile-specific header adjustments */
+            .header {
+                padding: 12px 12px 8px;
+                min-height: 55px;
+            }
+            
+            .logo {
+                font-size: 20px;
                 gap: 8px;
             }
             
+            .logo-icon {
+                font-size: 24px;
+            }
+            
+            .logo-text {
+                max-width: 150px;
+            }
+            
+            /* User profile on mobile - compact version */
+            .user-profile {
+                top: 12px;
+                right: 12px;
+                padding: 5px 8px 5px 5px;
+                max-width: 140px;
+                gap: 6px;
+            }
+            
+            .user-avatar {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+            
             .user-name {
+                font-size: 11px;
+            }
+            
+            .user-email {
                 display: none;
             }
             
             .logout-btn {
-                padding: 5px 10px;
-                font-size: 11px;
+                padding: 4px 8px;
+                font-size: 10px;
+                border-radius: 10px;
             }
             
-            .header {
-                padding: 15px 15px 10px;
-                min-height: 60px;
+            .header-spacer {
+                width: 140px;
             }
-            
+        }
+
+        @media (max-width: 350px) {
             .logo {
-                font-size: 24px;
+                font-size: 18px;
             }
             
-            .logo-icon {
-                font-size: 28px;
+            .logo-text {
+                max-width: 120px;
+            }
+            
+            .user-profile {
+                max-width: 120px;
+            }
+            
+            .user-name {
+                font-size: 10px;
+            }
+            
+            .logout-btn {
+                padding: 3px 6px;
+                font-size: 9px;
+            }
+            
+            .header-spacer {
+                width: 120px;
             }
         }
 
@@ -644,6 +739,19 @@
             .container {
                 max-width: 768px;
                 margin: 0 auto;
+            }
+            
+            .header {
+                padding: 20px 20px 15px;
+            }
+            
+            .logo {
+                font-size: 28px;
+                gap: 12px;
+            }
+            
+            .logo-icon {
+                font-size: 34px;
             }
         }
 
@@ -663,12 +771,15 @@
     </style>
 </head>
 <body>
-    <!-- User Profile (Shown when logged in) - Now positioned separately -->
+    <!-- User Profile (Shown when logged in) - Fixed position on top right -->
     <div class="user-profile" id="userProfile" style="display: none;">
         <div class="user-avatar" id="userAvatar">
             <i class="fas fa-user"></i>
         </div>
-        <div class="user-name" id="userName"></div>
+        <div class="user-info">
+            <div class="user-name" id="userName"></div>
+            <div class="user-email" id="userEmail"></div>
+        </div>
         <button class="logout-btn" id="logoutBtn">Logout</button>
     </div>
 
@@ -725,10 +836,14 @@
     <div class="container" id="mainContainer" style="display: none;">
         <!-- Header with logo -->
         <header class="header">
-            <div class="logo">
-                <i class="fas fa-fire-flame-curved logo-icon"></i>
-                <span>Dana on Fire</span>
+            <div class="logo-wrapper">
+                <div class="logo">
+                    <i class="fas fa-fire-flame-curved logo-icon"></i>
+                    <span class="logo-text">Dana on Fire</span>
+                </div>
             </div>
+            <!-- Spacer to balance the layout since user profile is fixed -->
+            <div class="header-spacer"></div>
         </header>
         
         <!-- Tab content area -->
@@ -853,6 +968,7 @@
         const userProfile = document.getElementById('userProfile');
         const userAvatar = document.getElementById('userAvatar');
         const userName = document.getElementById('userName');
+        const userEmail = document.getElementById('userEmail');
         const logoutBtn = document.getElementById('logoutBtn');
         const successMessage = document.getElementById('successMessage');
         const googleLogin = document.getElementById('googleLogin');
@@ -912,11 +1028,13 @@
                 
                 // Update user info
                 const displayName = user.displayName || user.email || 'User';
+                const email = user.email || '';
                 userName.textContent = displayName;
+                userEmail.textContent = email;
                 
                 // Set avatar
                 if (user.photoURL) {
-                    userAvatar.innerHTML = `<img src="${user.photoURL}" alt="${displayName}" style="width:100%;height:100%;border-radius:50%;">`;
+                    userAvatar.innerHTML = `<img src="${user.photoURL}" alt="${displayName}" style="width:100%;height:100%;object-fit:cover;">`;
                 } else {
                     const initial = displayName.charAt(0).toUpperCase();
                     userAvatar.innerHTML = initial;
