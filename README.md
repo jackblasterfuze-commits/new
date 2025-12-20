@@ -33,7 +33,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://wallpapers.com/images/hd/red-black-background-h18bb4lw1nyraagm.jpg');
+            background-image: url('https://dl.dir.freefiremobile.com/common/web_event/official2.ff.garena.all/202210/768671f1dc8d3c0a8f2448cf5ed6739c.jpg');
             background-size: cover;
             background-position: center;
             filter: blur(8px);
@@ -792,7 +792,7 @@
             </div>
             
             <h2 class="login-title">Welcome Back</h2>
-            <p class="login-subtitle">Sign in to access your creative projects</p>
+            <p class="login-subtitle">Sign in to access our creative projects</p>
             
             <div class="login-error" id="loginError">
                 <i class="fas fa-exclamation-circle"></i> <span id="errorText"></span>
