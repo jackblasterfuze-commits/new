@@ -9,7 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <style>
-        /* ALL YOUR ORIGINAL CSS - KEEPING EVERYTHING EXACTLY THE SAME */
+        /* ALL YOUR ORIGINAL CSS - WITH ADDITIONS FOR NEW FEATURES */
         * {
             margin: 0;
             padding: 0;
@@ -161,53 +161,39 @@
             animation: fadeIn 0.3s ease;
         }
 
-        /* User Profile */
-        .user-profile {
-            position: fixed;
+        /* UPDATED: User Profile in Header */
+        .user-profile-header {
+            position: absolute;
             top: 20px;
-            right: 20px;
-            z-index: 1000;
+            right: 15px;
+            z-index: 100;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .user-avatar {
-            width: 40px;
-            height: 40px;
+        .user-avatar-header {
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: rgba(255, 87, 34, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             border: 2px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
+            overflow: hidden;
         }
 
-        .user-name {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .user-avatar-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .logout-btn {
-            background: rgba(255, 87, 34, 0.2);
-            color: #ff5722;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 87, 34, 0.3);
+        .user-name-header {
+            display: none; /* Hide name in header to prevent overlap */
         }
 
         /* Success Message */
@@ -287,7 +273,7 @@
             overflow: hidden;
         }
 
-        /* Header with logo */
+        /* Header with logo - UPDATED FOR BETTER SPACING */
         .header {
             padding: 20px 15px 10px;
             text-align: center;
@@ -296,6 +282,10 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70px;
         }
 
         .logo {
@@ -303,13 +293,15 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            font-size: 28px;
+            font-size: 24px; /* Slightly smaller for better fit */
             font-weight: 900;
+            flex: 1;
+            text-align: center;
         }
 
         .logo-icon {
             color: #ff5722;
-            font-size: 34px;
+            font-size: 28px; /* Slightly smaller */
             animation: flicker 2s infinite alternate;
         }
 
@@ -323,7 +315,7 @@
             flex: 1;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            padding: 20px 15px 80px;
+            padding: 20px 15px 100px; /* Increased bottom padding for larger dock */
             position: relative;
         }
 
@@ -343,7 +335,7 @@
             display: block;
         }
 
-        /* iOS-like Dock */
+        /* iOS-like Dock - UPDATED WITH 4TH ITEM */
         .dock {
             position: fixed;
             bottom: 0;
@@ -352,12 +344,13 @@
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
             border-top: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 15px;
+            padding: 12px 15px;
             display: flex;
             justify-content: space-around;
             align-items: center;
             z-index: 100;
             border-radius: 20px 20px 0 0;
+            height: 80px; /* Slightly taller for 4 items */
         }
 
         .dock-item {
@@ -368,10 +361,12 @@
             gap: 5px;
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 12px;
             transition: all 0.2s ease;
             -webkit-touch-callout: none;
+            flex: 1;
+            min-width: 0; /* Allows items to shrink properly */
         }
 
         .dock-item.active, .dock-item:hover {
@@ -385,8 +380,353 @@
         }
 
         .dock-label {
-            font-size: 11px;
+            font-size: 10px; /* Slightly smaller for 4 items */
             font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        /* NEW: Account Tab */
+        .account-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .account-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .account-avatar-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            background: rgba(255, 87, 34, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .account-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .account-avatar-large .change-photo {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 12px;
+            padding: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .account-avatar-large:hover .change-photo {
+            opacity: 1;
+        }
+
+        .account-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .account-email {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .account-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ff5722;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .account-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .account-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .account-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 87, 34, 0.3);
+            transform: translateX(5px);
+        }
+
+        .account-btn i {
+            font-size: 20px;
+            color: #ff5722;
+            width: 24px;
+        }
+
+        .btn-text {
+            flex: 1;
+        }
+
+        .btn-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .btn-desc {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .btn-arrow {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* NEW: Modal for editing profile */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1002;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 25px;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 24px;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ff5722;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 15px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 16px;
+        }
+
+        .modal-btn-primary {
+            background: #ff5722;
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            background: #ff7043;
+            transform: translateY(-2px);
+        }
+
+        .modal-btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .modal-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* NEW: Purchases Section */
+        .purchases-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .purchase-item {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .purchase-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 87, 34, 0.3);
+        }
+
+        .purchase-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 87, 34, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #ff5722;
+            flex-shrink: 0;
+        }
+
+        .purchase-info {
+            flex: 1;
+        }
+
+        .purchase-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .purchase-date {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2px;
+        }
+
+        .purchase-price {
+            font-size: 14px;
+            color: #4CAF50;
+            font-weight: 600;
+        }
+
+        /* NEW: Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .empty-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 16px;
         }
 
         /* Home Tab - Contact Cards */
@@ -583,20 +923,28 @@
             }
             
             .dock-item {
-                padding: 8px 8px;
+                padding: 8px 5px;
+            }
+            
+            .dock-label {
+                font-size: 9px;
             }
             
             .login-container {
                 padding: 30px 20px;
             }
             
-            .user-profile {
-                top: 10px;
+            .user-profile-header {
+                top: 15px;
                 right: 10px;
             }
             
-            .user-name {
-                display: none;
+            .logo {
+                font-size: 22px;
+            }
+            
+            .logo-icon {
+                font-size: 26px;
             }
         }
 
@@ -612,6 +960,10 @@
             .container {
                 max-width: 768px;
                 margin: 0 auto;
+            }
+            
+            .dock-label {
+                font-size: 11px;
             }
         }
 
@@ -631,13 +983,11 @@
     </style>
 </head>
 <body>
-    <!-- User Profile (Shown when logged in) -->
-    <div class="user-profile" id="userProfile" style="display: none;">
-        <div class="user-avatar" id="userAvatar">
+    <!-- UPDATED: User Profile in Header (Small avatar only) -->
+    <div class="user-profile-header" id="userProfileHeader" style="display: none;">
+        <div class="user-avatar-header" id="userAvatarHeader">
             <i class="fas fa-user"></i>
         </div>
-        <div class="user-name" id="userName"></div>
-        <button class="logout-btn" id="logoutBtn">Logout</button>
     </div>
 
     <!-- Login Overlay (Shows when not logged in) -->
@@ -686,12 +1036,39 @@
         <button class="success-btn" id="continueBtn">Continue to Dashboard</button>
     </div>
 
+    <!-- NEW: Modal for editing profile -->
+    <div class="modal-overlay" id="editProfileModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Edit Profile</div>
+                <button class="modal-close" id="closeEditProfile">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Display Name</label>
+                    <input type="text" class="form-input" id="editDisplayName" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Profile Photo URL</label>
+                    <input type="text" class="form-input" id="editPhotoURL" placeholder="https://example.com/photo.jpg">
+                    <small style="color: rgba(255,255,255,0.5); font-size: 12px; display: block; margin-top: 5px;">
+                        Enter a URL to your profile picture (optional)
+                    </small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" id="cancelEditProfile">Cancel</button>
+                <button class="modal-btn modal-btn-primary" id="saveProfile">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Background with blur effect -->
     <div class="background"></div>
     
     <!-- Main container -->
     <div class="container" id="mainContainer" style="display: none;">
-        <!-- Header with logo -->
+        <!-- Header with logo - UPDATED: No overlap -->
         <header class="header">
             <div class="logo">
                 <i class="fas fa-fire-flame-curved logo-icon"></i>
@@ -777,9 +1154,117 @@
                     </p>
                 </div>
             </div>
+            
+            <!-- NEW: Account Tab -->
+            <div class="tab-pane" id="account">
+                <div class="account-content">
+                    <div class="account-header">
+                        <div class="account-avatar-large" id="accountAvatarLarge">
+                            <i class="fas fa-user" id="accountAvatarIcon"></i>
+                            <div class="change-photo">Change Photo</div>
+                        </div>
+                        <div class="account-name" id="accountName">User Name</div>
+                        <div class="account-email" id="accountEmail">user@example.com</div>
+                    </div>
+                    
+                    <div class="account-section">
+                        <div class="section-title">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Account Settings</span>
+                        </div>
+                        <div class="account-actions">
+                            <a href="#" class="account-btn" id="editProfileBtn">
+                                <i class="fas fa-edit"></i>
+                                <div class="btn-text">
+                                    <div class="btn-title">Edit Profile</div>
+                                    <div class="btn-desc">Change your name and profile picture</div>
+                                </div>
+                                <i class="fas fa-chevron-right btn-arrow"></i>
+                            </a>
+                            
+                            <a href="#" class="account-btn" id="changePasswordBtn">
+                                <i class="fas fa-key"></i>
+                                <div class="btn-text">
+                                    <div class="btn-title">Change Password</div>
+                                    <div class="btn-desc">Update your account password</div>
+                                </div>
+                                <i class="fas fa-chevron-right btn-arrow"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="account-section">
+                        <div class="section-title">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>My Purchases</span>
+                        </div>
+                        <div class="purchases-list" id="purchasesList">
+                            <!-- Purchases will be loaded here -->
+                        </div>
+                        <div class="empty-state" id="emptyPurchases" style="display: none;">
+                            <div class="empty-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="empty-text">No purchases yet</div>
+                        </div>
+                    </div>
+                    
+                    <div class="account-section">
+                        <div class="section-title">
+                            <i class="fas fa-cog"></i>
+                            <span>Preferences</span>
+                        </div>
+                        <div class="account-actions">
+                            <a href="#" class="account-btn" id="notificationsBtn">
+                                <i class="fas fa-bell"></i>
+                                <div class="btn-text">
+                                    <div class="btn-title">Notifications</div>
+                                    <div class="btn-desc">Manage your notification preferences</div>
+                                </div>
+                                <i class="fas fa-chevron-right btn-arrow"></i>
+                            </a>
+                            
+                            <a href="#" class="account-btn" id="privacyBtn">
+                                <i class="fas fa-shield-alt"></i>
+                                <div class="btn-text">
+                                    <div class="btn-title">Privacy & Security</div>
+                                    <div class="btn-desc">Control your privacy settings</div>
+                                </div>
+                                <i class="fas fa-chevron-right btn-arrow"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="account-section">
+                        <div class="section-title">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Support</span>
+                        </div>
+                        <div class="account-actions">
+                            <a href="#" class="account-btn" id="helpBtn">
+                                <i class="fas fa-question-circle"></i>
+                                <div class="btn-text">
+                                    <div class="btn-title">Help & Support</div>
+                                    <div class="btn-desc">Get help with your account</div>
+                                </div>
+                                <i class="fas fa-chevron-right btn-arrow"></i>
+                            </a>
+                            
+                            <a href="#" class="account-btn" id="logoutAccountBtn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <div class="btn-text">
+                                    <div class="btn-title">Logout</div>
+                                    <div class="btn-desc">Sign out from your account</div>
+                                </div>
+                                <i class="fas fa-chevron-right btn-arrow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <!-- iOS-like Dock -->
+        <!-- UPDATED: iOS-like Dock with 4 items (including Account) -->
         <nav class="dock">
             <a href="#" class="dock-item active" data-tab="home">
                 <i class="fas fa-home dock-icon"></i>
@@ -792,6 +1277,10 @@
             <a href="#" class="dock-item" data-tab="about">
                 <i class="fas fa-info-circle dock-icon"></i>
                 <span class="dock-label">About</span>
+            </a>
+            <a href="#" class="dock-item" data-tab="account">
+                <i class="fas fa-user dock-icon"></i>
+                <span class="dock-label">Account</span>
             </a>
         </nav>
         
@@ -818,10 +1307,8 @@
 
         // ==================== DOM ELEMENTS ====================
         const loginOverlay = document.getElementById('loginOverlay');
-        const userProfile = document.getElementById('userProfile');
-        const userAvatar = document.getElementById('userAvatar');
-        const userName = document.getElementById('userName');
-        const logoutBtn = document.getElementById('logoutBtn');
+        const userProfileHeader = document.getElementById('userProfileHeader');
+        const userAvatarHeader = document.getElementById('userAvatarHeader');
         const successMessage = document.getElementById('successMessage');
         const googleLogin = document.getElementById('googleLogin');
         const microsoftLogin = document.getElementById('microsoftLogin');
@@ -830,6 +1317,104 @@
         const loginError = document.getElementById('loginError');
         const errorText = document.getElementById('errorText');
         const mainContainer = document.getElementById('mainContainer');
+        
+        // NEW: Account elements
+        const accountAvatarLarge = document.getElementById('accountAvatarLarge');
+        const accountAvatarIcon = document.getElementById('accountAvatarIcon');
+        const accountName = document.getElementById('accountName');
+        const accountEmail = document.getElementById('accountEmail');
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const logoutAccountBtn = document.getElementById('logoutAccountBtn');
+        const purchasesList = document.getElementById('purchasesList');
+        const emptyPurchases = document.getElementById('emptyPurchases');
+        
+        // NEW: Modal elements
+        const editProfileModal = document.getElementById('editProfileModal');
+        const closeEditProfile = document.getElementById('closeEditProfile');
+        const cancelEditProfile = document.getElementById('cancelEditProfile');
+        const saveProfile = document.getElementById('saveProfile');
+        const editDisplayName = document.getElementById('editDisplayName');
+        const editPhotoURL = document.getElementById('editPhotoURL');
+        
+        // ==================== USER DATA MANAGEMENT ====================
+        // Get user data from localStorage
+        function getUserData() {
+            const userData = localStorage.getItem('danaUserData');
+            return userData ? JSON.parse(userData) : {};
+        }
+        
+        // Save user data to localStorage
+        function saveUserData(data) {
+            localStorage.setItem('danaUserData', JSON.stringify(data));
+        }
+        
+        // Get user purchases
+        function getUserPurchases() {
+            const purchases = localStorage.getItem('danaUserPurchases');
+            return purchases ? JSON.parse(purchases) : [];
+        }
+        
+        // Save user purchases
+        function saveUserPurchases(purchases) {
+            localStorage.setItem('danaUserPurchases', JSON.stringify(purchases));
+        }
+        
+        // Add a sample purchase (for testing)
+        function addSamplePurchase() {
+            const purchases = getUserPurchases();
+            if (purchases.length === 0) {
+                const samplePurchases = [
+                    {
+                        id: 1,
+                        title: "Dhana yellow pappa logo",
+                        date: "2024-03-15",
+                        price: "$9.99"
+                    },
+                    {
+                        id: 2,
+                        title: "farad Dialog Data Card",
+                        date: "2024-03-10",
+                        price: "$4.99"
+                    }
+                ];
+                saveUserPurchases(samplePurchases);
+                return samplePurchases;
+            }
+            return purchases;
+        }
+        
+        // Update purchases display
+        function updatePurchasesDisplay() {
+            const purchases = getUserPurchases();
+            
+            if (purchases.length === 0) {
+                purchasesList.style.display = 'none';
+                emptyPurchases.style.display = 'block';
+            } else {
+                purchasesList.style.display = 'flex';
+                emptyPurchases.style.display = 'none';
+                
+                // Clear current list
+                purchasesList.innerHTML = '';
+                
+                // Add purchases to list
+                purchases.forEach(purchase => {
+                    const purchaseItem = document.createElement('div');
+                    purchaseItem.className = 'purchase-item';
+                    purchaseItem.innerHTML = `
+                        <div class="purchase-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="purchase-info">
+                            <div class="purchase-title">${purchase.title}</div>
+                            <div class="purchase-date">Purchased on ${purchase.date}</div>
+                            <div class="purchase-price">${purchase.price}</div>
+                        </div>
+                    `;
+                    purchasesList.appendChild(purchaseItem);
+                });
+            }
+        }
         
         // ==================== AUTH FUNCTIONS ====================
         
@@ -870,26 +1455,53 @@
             return colors[Math.floor(Math.random() * colors.length)];
         }
         
+        // Update all user UI elements
+        function updateUserUI(user) {
+            const userData = getUserData();
+            const displayName = user.displayName || userData.displayName || user.email || 'User';
+            const photoURL = user.photoURL || userData.photoURL || '';
+            const email = user.email || '';
+            
+            // Update header avatar
+            if (photoURL) {
+                userAvatarHeader.innerHTML = `<img src="${photoURL}" alt="${displayName}">`;
+            } else {
+                const initial = displayName.charAt(0).toUpperCase();
+                userAvatarHeader.innerHTML = initial;
+                userAvatarHeader.style.background = getRandomColor();
+            }
+            
+            // Update account tab
+            accountName.textContent = displayName;
+            accountEmail.textContent = email;
+            
+            if (photoURL) {
+                accountAvatarLarge.innerHTML = `<img src="${photoURL}" alt="${displayName}"><div class="change-photo">Change Photo</div>`;
+                accountAvatarIcon.style.display = 'none';
+            } else {
+                const initial = displayName.charAt(0).toUpperCase();
+                accountAvatarLarge.innerHTML = `<div style="font-size: 40px;">${initial}</div><div class="change-photo">Change Photo</div>`;
+                accountAvatarIcon.style.display = 'none';
+                accountAvatarLarge.style.background = getRandomColor();
+            }
+            
+            // Update purchases
+            updatePurchasesDisplay();
+        }
+        
         // Update UI based on auth state
         function updateUI(user) {
             if (user) {
                 // User is signed in
                 loginOverlay.classList.add('hidden');
-                userProfile.style.display = 'flex';
+                userProfileHeader.style.display = 'flex';
                 mainContainer.style.display = 'flex';
                 
-                // Update user info
-                const displayName = user.displayName || user.email || 'User';
-                userName.textContent = displayName;
+                // Initialize sample purchases if needed
+                addSamplePurchase();
                 
-                // Set avatar
-                if (user.photoURL) {
-                    userAvatar.innerHTML = `<img src="${user.photoURL}" alt="${displayName}" style="width:100%;height:100%;border-radius:50%;">`;
-                } else {
-                    const initial = displayName.charAt(0).toUpperCase();
-                    userAvatar.innerHTML = initial;
-                    userAvatar.style.background = getRandomColor();
-                }
+                // Update user info
+                updateUserUI(user);
                 
                 // Show success message on first login
                 const hasSeenMessage = localStorage.getItem('danaHasSeenWelcome');
@@ -904,7 +1516,7 @@
             } else {
                 // User is signed out
                 loginOverlay.classList.remove('hidden');
-                userProfile.style.display = 'none';
+                userProfileHeader.style.display = 'none';
                 mainContainer.style.display = 'none';
             }
         }
@@ -929,8 +1541,14 @@
                 // Sign in with popup
                 const result = await auth.signInWithPopup(provider);
                 
-                // This will trigger the auth state listener
-                // which will call updateUI()
+                // Save user data
+                const user = result.user;
+                const userData = {
+                    displayName: user.displayName,
+                    photoURL: user.photoURL,
+                    email: user.email
+                };
+                saveUserData(userData);
                 
             } catch (error) {
                 console.error('Google Sign-in Error:', error);
@@ -952,16 +1570,89 @@
             }
         });
         
-        // ==================== SIGN OUT ====================
-        logoutBtn.addEventListener('click', async function() {
+        // ==================== PROFILE EDITING ====================
+        // Open edit profile modal
+        editProfileBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const user = auth.currentUser;
+            const userData = getUserData();
+            
+            if (user) {
+                editDisplayName.value = user.displayName || userData.displayName || '';
+                editPhotoURL.value = user.photoURL || userData.photoURL || '';
+                editProfileModal.classList.add('show');
+            }
+        });
+        
+        // Close modal functions
+        function closeModal() {
+            editProfileModal.classList.remove('show');
+        }
+        
+        closeEditProfile.addEventListener('click', closeModal);
+        cancelEditProfile.addEventListener('click', closeModal);
+        
+        // Save profile changes
+        saveProfile.addEventListener('click', async function() {
+            const newName = editDisplayName.value.trim();
+            const newPhotoURL = editPhotoURL.value.trim();
+            
+            if (!newName) {
+                showError('Please enter a display name');
+                return;
+            }
+            
             try {
-                await auth.signOut();
+                const user = auth.currentUser;
+                const userData = getUserData();
+                
+                // Update user data in localStorage
+                userData.displayName = newName;
+                if (newPhotoURL) {
+                    userData.photoURL = newPhotoURL;
+                }
+                saveUserData(userData);
+                
+                // Update Firebase user profile (if user is logged in with email/password)
+                // Note: For Google sign-in, you can't update profile directly
+                // But we can store the data locally
+                
+                // Update UI
+                updateUserUI({
+                    ...user,
+                    displayName: newName,
+                    photoURL: newPhotoURL || user.photoURL,
+                    email: user.email
+                });
+                
+                // Close modal
+                closeModal();
+                
+                // Show success message
+                showError('Profile updated successfully!');
+                
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                showError('Failed to update profile: ' + error.message);
+            }
+        });
+        
+        // ==================== SIGN OUT ====================
+        function handleLogout() {
+            try {
+                auth.signOut();
                 localStorage.removeItem('danaHasSeenWelcome');
                 showError("You have been signed out successfully.");
             } catch (error) {
                 console.error('Sign out error:', error);
                 showError('Failed to sign out. Please try again.');
             }
+        }
+        
+        // Logout from header
+        logoutAccountBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            handleLogout();
         });
         
         // ==================== CONTINUE BUTTON ====================
@@ -1099,11 +1790,13 @@
                     showGestureHint("← Swiped right");
                     if (currentTab === 'projects') nextTab = 'home';
                     else if (currentTab === 'about') nextTab = 'projects';
+                    else if (currentTab === 'account') nextTab = 'about';
                 } else {
                     // Swipe left - go to next tab
                     showGestureHint("→ Swiped left");
                     if (currentTab === 'home') nextTab = 'projects';
                     else if (currentTab === 'projects') nextTab = 'about';
+                    else if (currentTab === 'about') nextTab = 'account';
                 }
                 
                 // Switch tab if nextTab is determined
@@ -1141,6 +1834,37 @@
                         this.style.transform = 'translateY(-5px)';
                     }, 150);
                 });
+            });
+            
+            // Initialize other account buttons (placeholder functionality)
+            document.getElementById('changePasswordBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                showError('Password change functionality will be available soon!');
+            });
+            
+            document.getElementById('notificationsBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                showError('Notification settings will be available soon!');
+            });
+            
+            document.getElementById('privacyBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                showError('Privacy settings will be available soon!');
+            });
+            
+            document.getElementById('helpBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                showError('Help center will be available soon!');
+            });
+            
+            // Account avatar click to edit profile
+            accountAvatarLarge.addEventListener('click', function() {
+                editProfileBtn.click();
+            });
+            
+            // Header avatar click to go to account tab
+            userAvatarHeader.addEventListener('click', function() {
+                switchTab('account');
             });
         });
     </script>
