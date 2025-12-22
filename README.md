@@ -2,14 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Dana on Fire | Creative Projects</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <style>
-        /* ALL YOUR ORIGINAL CSS - KEEPING EVERYTHING EXACTLY THE SAME */
+        :root {
+            --ios-bg: #000000;
+            --ios-accent: #ff5722;
+            --ios-card: rgba(28, 28, 30, 0.7);
+            --ios-blur: blur(20px);
+            --safe-area-bottom: env(safe-area-inset-bottom);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -18,26 +24,22 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: #000;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+            background: var(--ios-bg);
             color: #fff;
-            overflow-x: hidden;
+            overflow: hidden;
             height: 100vh;
-            touch-action: pan-y;
+            width: 100vw;
         }
 
-        /* Background with blur effect */
+        /* Background */
         .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://wallpapers.com/images/hd/red-black-background-h18bb4lw1nyraagm.jpg');
-            background-size: cover;
-            background-position: center;
-            filter: blur(8px);
-            transform: scale(1.1);
+            background: linear-gradient(135deg, #1a0000 0%, #000 100%);
             z-index: -1;
         }
 
@@ -48,15 +50,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: var(--ios-blur);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-            padding: 20px;
-            opacity: 1;
+            z-index: 2000;
             transition: opacity 0.5s ease;
         }
 
@@ -66,1233 +65,375 @@
         }
 
         .login-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(30px);
-            border-radius: 24px;
-            padding: 40px 30px;
-            width: 100%;
-            max-width: 400px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            width: 85%;
+            max-width: 350px;
             text-align: center;
-            animation: fadeInUp 0.5s ease;
+            animation: iosSpring 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .login-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            font-size: 32px;
-            font-weight: 900;
-            margin-bottom: 30px;
+        @keyframes iosSpring {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .login-icon {
-            color: #ff5722;
-            font-size: 40px;
-            animation: flicker 2s infinite alternate;
+            font-size: 60px;
+            color: var(--ios-accent);
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(255,87,34,0.4));
         }
 
-        .login-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .login-subtitle {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-        .login-options {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
+        .login-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .login-subtitle { color: #8e8e93; margin-bottom: 40px; font-size: 16px; }
 
         .login-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            color: white;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-3px);
-            opacity: 0.9;
-        }
-
-        .btn-google { background: #4285F4; }
-        .btn-microsoft { background: #00BCF2; }
-        .btn-apple { background: #000; }
-
-        .login-btn i {
-            font-size: 20px;
-        }
-
-        .login-error {
-            color: #ff6b6b;
-            background: rgba(255, 107, 107, 0.1);
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 14px;
-            display: none;
-        }
-
-        .login-error.show {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        /* UPDATED: User Profile - Positioned on top right with proper spacing */
-        .user-profile {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(20px);
-            padding: 6px 12px 6px 6px;
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            max-width: 180px;
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: rgba(255, 87, 34, 0.25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            border: 1.5px solid rgba(255, 87, 34, 0.5);
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .user-avatar img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            padding: 16px;
+            border-radius: 14px;
+            border: none;
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 0.1s;
         }
 
-        .user-info {
+        .login-btn:active { transform: scale(0.96); }
+        .btn-google { background: #fff; color: #000; }
+
+        /* Main App Interface */
+        .app-shell {
             display: flex;
             flex-direction: column;
-            min-width: 0;
-            flex: 1;
-        }
-
-        .user-name {
-            font-size: 12px;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.2;
-        }
-
-        .user-email {
-            font-size: 10px;
-            opacity: 0.7;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.2;
-        }
-
-        .logout-btn {
-            background: rgba(255, 87, 34, 0.2);
-            color: #ff5722;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 11px;
-            flex-shrink: 0;
-            margin-left: 4px;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 87, 34, 0.35);
-        }
-
-        /* Success Message */
-        .success-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(30px);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 350px;
-            width: 90%;
-            text-align: center;
-            z-index: 1001;
-            display: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            animation: fadeInUp 0.5s ease;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .success-icon {
-            font-size: 60px;
-            color: #4CAF50;
-            margin-bottom: 20px;
-            animation: successPulse 1s ease;
-        }
-
-        @keyframes successPulse {
-            0% { transform: scale(0.8); opacity: 0; }
-            70% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .success-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .success-text {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .success-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: #4CAF50;
-            color: white;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .success-btn:hover {
-            background: #66BB6A;
-            transform: scale(1.05);
-        }
-
-        /* Main container */
-        .container {
-            max-width: 100%;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
+            padding-top: env(safe-area-inset-top);
         }
 
-        /* Header with logo - Updated for mobile friendly layout */
-        .header {
-            padding: 15px 15px 10px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            z-index: 10;
+        .app-header {
+            padding: 20px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: var(--ios-blur);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 60px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .logo-wrapper {
-            display: flex;
-            align-items: center;
-            flex: 1;
-            min-width: 0;
+        .app-header h1 {
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: -1px;
         }
 
-        .logo {
+        .user-pill {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 24px;
-            font-weight: 900;
-            text-decoration: none;
-            color: white;
-            white-space: nowrap;
+            background: var(--ios-card);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .logo-icon {
-            color: #ff5722;
-            font-size: 28px;
-            animation: flicker 2s infinite alternate;
-            flex-shrink: 0;
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--ios-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
         }
 
-        .logo-text {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        /* Header spacer to balance the layout */
-        .header-spacer {
-            width: 180px;
-            flex-shrink: 0;
-        }
-
-        /* Tab content area */
-        .tab-content {
+        /* Tabs Content */
+        .scroll-container {
             flex: 1;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            padding: 20px 15px 80px;
-            position: relative;
-        }
-
-        /* Hide all tabs by default */
-        .tab-pane {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Active tab */
-        .tab-pane.active {
-            display: block;
-        }
-
-        /* iOS-like Dock */
-        .dock {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 15px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 100;
-            border-radius: 20px 20px 0 0;
-        }
-
-        .dock-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-            -webkit-touch-callout: none;
-        }
-
-        .dock-item.active, .dock-item:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-5px);
-        }
-
-        .dock-icon {
-            font-size: 20px;
-        }
-
-        .dock-label {
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        /* Home Tab - Contact Cards */
-        .contact-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .contact-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
+            padding-bottom: calc(100px + var(--safe-area-bottom));
         }
 
-        .contact-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-        }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; animation: fadeIn 0.4s ease; }
 
-        .contact-icon {
-            font-size: 28px;
-            margin-bottom: 15px;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 87, 34, 0.2);
-            color: #ff5722;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } }
 
-        .contact-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .contact-value {
-            font-size: 16px;
-            opacity: 0.9;
-            margin-bottom: 15px;
-        }
-
-        .contact-action {
-            display: inline-block;
-            padding: 8px 20px;
-            background: #ff5722;
-            color: white;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .contact-action:hover {
-            background: #ff7043;
-            transform: scale(1.05);
-        }
-
-        /* Projects Tab - File Grid */
-        .projects-grid {
+        /* iPhone Style Grid */
+        .app-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
+            gap: 20px;
         }
 
-        .project-item {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .app-card {
+            background: var(--ios-card);
+            border-radius: 24px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .project-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 120px;
-            border-radius: 12px;
-            object-fit: cover;
+        .app-icon-img {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #333, #111);
+            border-radius: 18px;
             margin-bottom: 12px;
-            background-color: #333;
-        }
-
-        .project-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .project-desc {
-            font-size: 13px;
-            opacity: 0.8;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-
-        .download-btn {
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 8px 15px;
-            background: rgba(255, 87, 34, 0.2);
-            color: #ff5722;
-            border-radius: 50px;
-            font-weight: 600;
+            font-size: 30px;
+            color: var(--ios-accent);
+        }
+
+        .app-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+        .app-meta { font-size: 12px; color: #8e8e93; }
+
+        /* iOS Dock */
+        .ios-dock-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding-bottom: var(--safe-area-bottom);
+        }
+
+        .ios-dock {
+            background: rgba(44, 44, 46, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .dock-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #8e8e93;
             text-decoration: none;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            width: 100%;
+            width: 60px;
+            transition: 0.2s;
         }
 
-        .download-btn:hover {
-            background: rgba(255, 87, 34, 0.3);
-        }
+        .dock-btn.active { color: var(--ios-accent); }
+        .dock-btn i { font-size: 22px; margin-bottom: 4px; }
+        .dock-btn span { font-size: 10px; font-weight: 500; }
 
-        /* About Tab */
-        .about-content {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 25px;
-            margin-top: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .about-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: #ff5722;
-        }
-
-        .about-text {
-            font-size: 16px;
-            line-height: 1.6;
-            opacity: 0.9;
+        /* About & Contact Styles */
+        .ios-list {
+            background: var(--ios-card);
+            border-radius: 14px;
+            overflow: hidden;
             margin-bottom: 20px;
         }
 
-        .about-highlight {
-            color: #ff5722;
-            font-weight: 700;
-        }
-
-        /* Gesture indicator */
-        .gesture-hint {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.8);
+        .ios-list-item {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            text-decoration: none;
             color: white;
-            padding: 15px 25px;
-            border-radius: 15px;
-            font-size: 14px;
-            display: none;
-            z-index: 1000;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            .contact-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .dock-item {
-                padding: 8px 8px;
-            }
-            
-            .login-container {
-                padding: 30px 20px;
-            }
-            
-            /* Mobile-specific header adjustments */
-            .header {
-                padding: 12px 12px 8px;
-                min-height: 55px;
-            }
-            
-            .logo {
-                font-size: 20px;
-                gap: 8px;
-            }
-            
-            .logo-icon {
-                font-size: 24px;
-            }
-            
-            .logo-text {
-                max-width: 150px;
-            }
-            
-            /* User profile on mobile - compact version */
-            .user-profile {
-                top: 12px;
-                right: 12px;
-                padding: 5px 8px 5px 5px;
-                max-width: 140px;
-                gap: 6px;
-            }
-            
-            .user-avatar {
-                width: 28px;
-                height: 28px;
-                font-size: 12px;
-            }
-            
-            .user-name {
-                font-size: 11px;
-            }
-            
-            .user-email {
-                display: none;
-            }
-            
-            .logout-btn {
-                padding: 4px 8px;
-                font-size: 10px;
-                border-radius: 10px;
-            }
-            
-            .header-spacer {
-                width: 140px;
-            }
-        }
+        .ios-list-item:last-child { border-bottom: none; }
+        .ios-list-item i { width: 30px; height: 30px; background: #3a3a3c; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--ios-accent); }
 
-        @media (max-width: 350px) {
-            .logo {
-                font-size: 18px;
-            }
-            
-            .logo-text {
-                max-width: 120px;
-            }
-            
-            .user-profile {
-                max-width: 120px;
-            }
-            
-            .user-name {
-                font-size: 10px;
-            }
-            
-            .logout-btn {
-                padding: 3px 6px;
-                font-size: 9px;
-            }
-            
-            .header-spacer {
-                width: 120px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .contact-cards {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .projects-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .container {
-                max-width: 768px;
-                margin: 0 auto;
-            }
-            
-            .header {
-                padding: 20px 20px 15px;
-            }
-            
-            .logo {
-                font-size: 28px;
-                gap: 12px;
-            }
-            
-            .logo-icon {
-                font-size: 34px;
-            }
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 87, 34, 0.5);
-            border-radius: 10px;
-        }
+        .about-box { line-height: 1.6; color: #d1d1d6; font-size: 16px; }
+        .about-box h2 { color: white; margin-bottom: 15px; font-size: 24px; }
     </style>
 </head>
 <body>
-    <!-- User Profile (Shown when logged in) - Fixed position on top right -->
-    <div class="user-profile" id="userProfile" style="display: none;">
-        <div class="user-avatar" id="userAvatar">
-            <i class="fas fa-user"></i>
-        </div>
-        <div class="user-info">
-            <div class="user-name" id="userName"></div>
-            <div class="user-email" id="userEmail"></div>
-        </div>
-        <button class="logout-btn" id="logoutBtn">Logout</button>
-    </div>
 
-    <!-- Login Overlay (Shows when not logged in) -->
+    <div class="background"></div>
+
     <div class="login-overlay" id="loginOverlay">
         <div class="login-container">
-            <div class="login-logo">
-                <i class="fas fa-fire-flame-curved login-icon"></i>
-                <span>Dana on Fire</span>
-            </div>
+            <i class="fas fa-fire-flame-curved login-icon"></i>
+            <h1 class="login-title">Dana on Fire</h1>
+            <p class="login-subtitle">Creative projects at your fingertips</p>
             
-            <h2 class="login-title">Welcome Back</h2>
-            <p class="login-subtitle">Sign in to access our creative projects</p>
+            <div id="loginError" style="color: #ff453a; margin-bottom: 15px; display: none; font-size: 14px;"></div>
             
-            <div class="login-error" id="loginError">
-                <i class="fas fa-exclamation-circle"></i> <span id="errorText"></span>
-            </div>
-            
-            <div class="login-options">
-                <button class="login-btn btn-google" id="googleLogin">
-                    <i class="fab fa-google"></i>
-                    <span>Continue with Google</span>
-                </button>
-                
-                <button class="login-btn btn-microsoft" id="microsoftLogin" style="display: none;">
-                    <i class="fab fa-microsoft"></i>
-                    <span>Continue with Microsoft</span>
-                </button>
-                
-                <button class="login-btn btn-apple" id="appleLogin" style="display: none;">
-                    <i class="fab fa-apple"></i>
-                    <span>Continue with Apple</span>
-                </button>
-            </div>
-            
-            <p style="color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 20px;">
-                By signing in, you agree to our Terms of Service and Privacy Policy
-            </p>
+            <button class="login-btn btn-google" id="googleLogin">
+                <i class="fab fa-google"></i> Continue with Google
+            </button>
+            <p style="font-size: 12px; color: #8e8e93; margin-top: 20px;">Secure biometric login enabled</p>
         </div>
     </div>
 
-    <!-- Success Message -->
-    <div class="success-message" id="successMessage">
-        <i class="fas fa-check-circle success-icon"></i>
-        <h3 class="success-title">Successfully Signed In!</h3>
-        <p class="success-text">Welcome to Dana on Fire. You now have full access to all creative projects and features.</p>
-        <button class="success-btn" id="continueBtn">Continue to Dashboard</button>
-    </div>
-
-    <!-- Background with blur effect -->
-    <div class="background"></div>
-    
-    <!-- Main container -->
-    <div class="container" id="mainContainer" style="display: none;">
-        <!-- Header with logo -->
-        <header class="header">
-            <div class="logo-wrapper">
-                <div class="logo">
-                    <i class="fas fa-fire-flame-curved logo-icon"></i>
-                    <span class="logo-text">Dana on Fire</span>
-                </div>
+    <div class="app-shell" id="appShell" style="display: none;">
+        <header class="app-header">
+            <h1 id="headerTitle">Home</h1>
+            <div class="user-pill">
+                <div class="user-avatar" id="userInitial">U</div>
+                <span id="logoutBtn" style="font-size: 12px; font-weight: 600; color: #ff453a;">Logout</span>
             </div>
-            <!-- Spacer to balance the layout since user profile is fixed -->
-            <div class="header-spacer"></div>
         </header>
-        
-        <!-- Tab content area -->
-        <div class="tab-content">
-            <!-- Home Tab -->
+
+        <div class="scroll-container">
             <div class="tab-pane active" id="home">
-                <!-- HOME TAB: Contact information section -->
-                <div class="contact-cards">
-                    <!-- Email card -->
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
+                <div class="ios-list">
+                    <a href="mailto:contact@danaonfire.com" class="ios-list-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <div style="font-size: 15px; font-weight: 500;">Email</div>
+                            <div style="font-size: 13px; color: #8e8e93;">contact@danaonfire.com</div>
                         </div>
-                        <div class="contact-title">Email</div>
-                        <div class="contact-value">contact@danaonfire.com</div>
-                        <a href="mailto:contact@danaonfire.com" class="contact-action">Send Email</a>
-                    </div>
-                    
-                    <!-- Phone card -->
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
+                    </a>
+                    <a href="tel:+94741048179" class="ios-list-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <div style="font-size: 15px; font-weight: 500;">Phone</div>
+                            <div style="font-size: 13px; color: #8e8e93;">0741048179</div>
                         </div>
-                        <div class="contact-title">Phone</div>
-                        <div class="contact-value">0741048179</div>
-                        <a href="tel:+94741048179" class="contact-action">Call Now</a>
-                    </div>
-                    
-                    <!-- WhatsApp card -->
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://wa.me/94741048179" class="ios-list-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <div style="font-size: 15px; font-weight: 500;">WhatsApp</div>
+                            <div style="font-size: 13px; color: #8e8e93;">Chat with us</div>
                         </div>
-                        <div class="contact-title">WhatsApp</div>
-                        <div class="contact-value">+94741048179</div>
-                        <a href="https://wa.me/15551234567" class="contact-action" target="_blank">Chat on WhatsApp</a>
-                    </div>
-                    
-                    <!-- Address card -->
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+                    </a>
+                    <a href="#" class="ios-list-item">
+                        <i class="fas fa-location-arrow"></i>
+                        <div>
+                            <div style="font-size: 15px; font-weight: 500;">Location</div>
+                            <div style="font-size: 13px; color: #8e8e93;">Sri Lanka</div>
                         </div>
-                        <div class="contact-title">Location</div>
-                        <div class="contact-value">srilanka</div>
-                        <a href="https://maps.google.com/?q=San+Francisco" class="contact-action" target="_blank">View on Map</a>
-                    </div>
+                    </a>
                 </div>
             </div>
-            
-            <!-- Projects Tab -->
+
             <div class="tab-pane" id="projects">
-                <!-- PROJECTS TAB: 12 file slots for projects -->
-                <div class="projects-grid" id="projectsGrid">
-                    <!-- Project items will be dynamically added here -->
-                </div>
+                <div class="app-grid" id="projectsGrid">
+                    </div>
             </div>
-            
-            <!-- About Tab -->
+
             <div class="tab-pane" id="about">
-                <!-- ABOUT TAB: Description about the company -->
-                <div class="about-content">
-                    <h2 class="about-title">About Dana on Fire</h2>
-                    <p class="about-text">
-                        Welcome to <span class="about-highlight">Dana on Fire</span>, a creative studio dedicated to bringing innovative digital projects.
-                    </p>
-                    <p class="about-text">
-                        පූරුවේ කරපු අකුසල්                                    ගෙවන්නට
-පාරුවේ ඇවිත් විය දුක්                                     විඳින්නට
-මාරුවේ අවල අදිමින් විටින්                                      විට
-සීරුවේ බසිමු ගොස් තුන්                                  මෝදරට
-                    </p>
-                    <p class="about-text">
-                        සූර්යයා යනු අපගේ සෞරග්‍රහ මණ්ඩලයේ මධ්‍යයේ ඇති විශාල තාරකාවකි. එය ප්‍රධාන වශයෙන් හයිඩ්‍රජන් හා හීලියම් වලින් සෑදුණු අතිශයින් රත් වූ වායු ගෝලයකි (ප්ලාස්මා). එහි ඇති ගුරුත්වාකර්ෂණ බලය හේතුවෙන් ග්‍රහලෝක, ග්‍රහක හා අනෙකුත් වස්තූන් එය වටා කක්ෂගත වී ඇත.
-                    </p>
-                    <p class="about-text">
-                       Free Fire තරගකාරී ක්‍රීඩාවක් වුවද, එය මිතුරන් සමග සම්බන්ධ වීමට, එකට කණ්ඩායම් වශයෙන් ක්‍රියා කිරීමට හා සහයෝගයෙන් කටයුතු කිරීමට හොඳ වේදියක් සපයයි.
-                    </p>
+                <div class="about-box">
+                    <h2>Creative Studio</h2>
+                    <p>Welcome to <b>Dana on Fire</b>. We are a creative studio dedicated to bringing innovative digital projects to life with a focus on speed and impact.</p>
+                    <br>
+                    <div class="ios-list" style="padding: 15px; font-style: italic; font-size: 14px;">
+                        පූරුවේ කරපු අකුසල් ගෙවන්නට...<br>
+                        පාරුවේ ඇවිත් විය දුක් විඳින්න්නට...<br>
+                        මාරුවේ අවල අදිමින් විටින් විට...<br>
+                        සීරුවේ බසිමු ගොස් තුන් මෝදරට...
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <!-- iOS-like Dock -->
-        <nav class="dock">
-            <a href="#" class="dock-item active" data-tab="home">
-                <i class="fas fa-home dock-icon"></i>
-                <span class="dock-label">Home</span>
-            </a>
-            <a href="#" class="dock-item" data-tab="projects">
-                <i class="fas fa-folder dock-icon"></i>
-                <span class="dock-label">Projects</span>
-            </a>
-            <a href="#" class="dock-item" data-tab="about">
-                <i class="fas fa-info-circle dock-icon"></i>
-                <span class="dock-label">About</span>
-            </a>
-        </nav>
-        
-        <!-- Gesture hint (shown on swipe) -->
-        <div class="gesture-hint" id="gestureHint"></div>
+
+        <div class="ios-dock-container">
+            <nav class="ios-dock">
+                <a href="#" class="dock-btn active" data-tab="home" data-title="Home">
+                    <i class="fas fa-house"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="dock-btn" data-tab="projects" data-title="Projects">
+                    <i class="fas fa-th-large"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="#" class="dock-btn" data-tab="about" data-title="About">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About</span>
+                </a>
+            </nav>
+        </div>
     </div>
 
     <script>
-        // ==================== FIREBASE CONFIGURATION ====================
-        // Using YOUR EXACT Firebase config from the console
+        // Firebase Config (Keep your original config)
         const firebaseConfig = {
             apiKey: "AIzaSyAOGZTqdkmcwo-wcpDOduMYua6eyjN6f6A",
             authDomain: "dana-on-fire.firebaseapp.com",
             projectId: "dana-on-fire",
             storageBucket: "dana-on-fire.firebasestorage.app",
             messagingSenderId: "136143488788",
-            appId: "1:136143488788:web:263ff21f7ca852d75e6401",
-            measurementId: "G-NJDPB16ZLF"
+            appId: "1:136143488788:web:263ff21f7ca852d75e6401"
         };
 
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // ==================== DOM ELEMENTS ====================
-        const loginOverlay = document.getElementById('loginOverlay');
-        const userProfile = document.getElementById('userProfile');
-        const userAvatar = document.getElementById('userAvatar');
-        const userName = document.getElementById('userName');
-        const userEmail = document.getElementById('userEmail');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const successMessage = document.getElementById('successMessage');
+        // Auth Logic
         const googleLogin = document.getElementById('googleLogin');
-        const microsoftLogin = document.getElementById('microsoftLogin');
-        const appleLogin = document.getElementById('appleLogin');
-        const continueBtn = document.getElementById('continueBtn');
-        const loginError = document.getElementById('loginError');
-        const errorText = document.getElementById('errorText');
-        const mainContainer = document.getElementById('mainContainer');
-        
-        // ==================== AUTH FUNCTIONS ====================
-        
-        // Show loading state
-        function showLoading(button, text = "Signing in...") {
-            const originalHTML = button.innerHTML;
-            button.innerHTML = `<i class="fas fa-spinner fa-spin"></i><span>${text}</span>`;
-            button.disabled = true;
-            return originalHTML;
-        }
-        
-        // Reset button
-        function resetButton(button, originalHTML) {
-            setTimeout(() => {
-                button.innerHTML = originalHTML;
-                button.disabled = false;
-            }, 1000);
-        }
-        
-        // Show error message
-        function showError(message) {
-            errorText.textContent = message;
-            loginError.classList.add('show');
-            setTimeout(() => {
-                loginError.classList.remove('show');
-            }, 5000);
-        }
-        
-        // Generate random color for avatar
-        function getRandomColor() {
-            const colors = [
-                'rgba(255, 87, 34, 0.3)',
-                'rgba(33, 150, 243, 0.3)',
-                'rgba(76, 175, 80, 0.3)',
-                'rgba(156, 39, 176, 0.3)',
-                'rgba(244, 67, 54, 0.3)'
-            ];
-            return colors[Math.floor(Math.random() * colors.length)];
-        }
-        
-        // Update UI based on auth state
-        function updateUI(user) {
+        googleLogin.onclick = () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).catch(err => {
+                document.getElementById('loginError').innerText = err.message;
+                document.getElementById('loginError').style.display = 'block';
+            });
+        };
+
+        auth.onAuthStateChanged(user => {
             if (user) {
-                // User is signed in
-                loginOverlay.classList.add('hidden');
-                userProfile.style.display = 'flex';
-                mainContainer.style.display = 'flex';
-                
-                // Update user info
-                const displayName = user.displayName || user.email || 'User';
-                const email = user.email || '';
-                userName.textContent = displayName;
-                userEmail.textContent = email;
-                
-                // Set avatar
-                if (user.photoURL) {
-                    userAvatar.innerHTML = `<img src="${user.photoURL}" alt="${displayName}" style="width:100%;height:100%;object-fit:cover;">`;
-                } else {
-                    const initial = displayName.charAt(0).toUpperCase();
-                    userAvatar.innerHTML = initial;
-                    userAvatar.style.background = getRandomColor();
-                }
-                
-                // Show success message on first login
-                const hasSeenMessage = localStorage.getItem('danaHasSeenWelcome');
-                if (!hasSeenMessage) {
-                    setTimeout(() => {
-                        successMessage.classList.add('show');
-                        localStorage.setItem('danaHasSeenWelcome', 'true');
-                    }, 500);
-                }
-                
-                console.log('User signed in:', user);
+                document.getElementById('loginOverlay').classList.add('hidden');
+                document.getElementById('appShell').style.display = 'flex';
+                document.getElementById('userInitial').innerText = user.displayName ? user.displayName[0] : 'U';
+                loadProjects();
             } else {
-                // User is signed out
-                loginOverlay.classList.remove('hidden');
-                userProfile.style.display = 'none';
-                mainContainer.style.display = 'none';
-            }
-        }
-        
-        // ==================== REAL GOOGLE SIGN-IN ====================
-        googleLogin.addEventListener('click', async function() {
-            const originalHTML = showLoading(this, "Opening Google Sign-in...");
-            
-            try {
-                // Create Google Auth Provider
-                const provider = new firebase.auth.GoogleAuthProvider();
-                
-                // Add scopes for profile and email
-                provider.addScope('profile');
-                provider.addScope('email');
-                
-                // Optional: Force account selection every time
-                provider.setCustomParameters({
-                    prompt: 'select_account'
-                });
-                
-                // Sign in with popup
-                const result = await auth.signInWithPopup(provider);
-                
-                // This will trigger the auth state listener
-                // which will call updateUI()
-                
-            } catch (error) {
-                console.error('Google Sign-in Error:', error);
-                
-                // Handle specific errors
-                if (error.code === 'auth/popup-blocked') {
-                    showError('Popup blocked by browser. Please allow popups for this site and try again.');
-                } else if (error.code === 'auth/popup-closed-by-user') {
-                    showError('Sign-in cancelled. Please try again.');
-                } else if (error.code === 'auth/unauthorized-domain') {
-                    showError('This domain is not authorized. Please add "localhost" to Firebase Authorized Domains.');
-                } else if (error.code === 'auth/operation-not-allowed') {
-                    showError('Google sign-in is not enabled. Please enable it in Firebase Console.');
-                } else {
-                    showError('Sign-in failed: ' + error.message);
-                }
-                
-                resetButton(this, originalHTML);
+                document.getElementById('loginOverlay').classList.remove('hidden');
+                document.getElementById('appShell').style.display = 'none';
             }
         });
-        
-        // ==================== SIGN OUT ====================
-        logoutBtn.addEventListener('click', async function() {
-            try {
-                await auth.signOut();
-                localStorage.removeItem('danaHasSeenWelcome');
-                showError("You have been signed out successfully.");
-            } catch (error) {
-                console.error('Sign out error:', error);
-                showError('Failed to sign out. Please try again.');
-            }
-        });
-        
-        // ==================== CONTINUE BUTTON ====================
-        continueBtn.addEventListener('click', function() {
-            successMessage.classList.remove('show');
-        });
-        
-        // ==================== AUTH STATE LISTENER ====================
-        // This listens for sign-in/sign-out events
-        auth.onAuthStateChanged((user) => {
-            updateUI(user);
-            
-            // Show gesture hint if user is logged in
-            if (user) {
-                setTimeout(() => {
-                    showGestureHint("← Swipe left/right to switch tabs →");
-                }, 1000);
-            }
-        });
-        
-        // ==================== YOUR ORIGINAL SITE CODE ====================
-        // Gesture detection variables
-        let touchStartX = 0;
-        let touchStartY = 0;
-        let touchEndX = 0;
-        let touchEndY = 0;
-        const gestureZone = document.getElementById('mainContainer');
-        const gestureHint = document.getElementById('gestureHint');
-        
-        // Tab switching functionality
-        const dockItems = document.querySelectorAll('.dock-item');
-        const tabPanes = document.querySelectorAll('.tab-pane');
-        
-        // Initialize projects grid with 12 items
-        const projectsGrid = document.getElementById('projectsGrid');
-        const projectData = [
-            { title: "Dhana yellow pappa logo", desc: "❌රුපියල් 100", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/saiko%201.jpeg", link: "https://drive.google.com/file/d/10BXV0rRV47V0VV1_U-yOIw3dUSXaTIVb/view?usp=drivesdk" },
-            { title: "farad", desc: "⭕dialog data card", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/6.jpeg", link: "https://drive.google.com/file/d/1-Cfa79dpSzu32l46Y8aEIqWpdOtt_uPS/view?usp=drivesdk" },
-            { title: "tollak", desc: "*❌රුපියල් 100*", img: "https://raw.githubusercontent.com/jackblasterfuze-commits/new/refs/heads/main/1.jpeg", link: "https://drive.google.com/file/d/10J1LDCVuIwo74r7HV0-glAkAEO7UnIVh/view?usp=drivesdk" },
-            { title: "kolla", desc: "⭕dialog data card", img: "https://github.com/user-attachments/assets/4b20c798-1e6a-400d-ac47-7409011a7ba2", link: "https://drive.google.com/file/d/example4" },
-            { title: "201", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example5" },
-            { title: "301", desc: "Content not found", img: "https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", link: "https://drive.google.com/file/d/example6" },
-            { title: "475", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example7" },
-            { title: "532", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example8" },
-            { title: "412", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example9" },
-            { title: "865", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example10" },
-            { title: "4725", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example11" },
-            { title: "4785", desc: "Content not found", img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?20210219185637", link: "https://drive.google.com/file/d/example12" }
-        ];
-        
-        // Function to switch tabs
-        function switchTab(tabId) {
-            // Update dock items
-            dockItems.forEach(item => {
-                if (item.dataset.tab === tabId) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
-            
-            // Update tab panes
-            tabPanes.forEach(pane => {
-                if (pane.id === tabId) {
-                    pane.classList.add('active');
-                } else {
-                    pane.classList.remove('active');
-                }
-            });
-        }
-        
-        // Initialize the projects grid with 12 items
-        function initializeProjects() {
-            projectsGrid.innerHTML = '';
-            
-            projectData.forEach((project, index) => {
-                const projectItem = document.createElement('div');
-                projectItem.className = 'project-item';
-                projectItem.innerHTML = `
-                    <img src="${project.img}" alt="${project.title}" class="project-image">
-                    <div class="project-title">${project.title}</div>
-                    <div class="project-desc">${project.desc}</div>
-                    <a href="${project.link}" class="download-btn" target="_blank">
-                        <i class="fas fa-download"></i>
-                        Download
-                    </a>
-                `;
-                projectsGrid.appendChild(projectItem);
-            });
-        }
-        
-        // Show gesture hint temporarily
-        function showGestureHint(message) {
-            gestureHint.textContent = message;
-            gestureHint.style.display = 'block';
-            
-            setTimeout(() => {
-                gestureHint.style.display = 'none';
-            }, 1500);
-        }
-        
-        // Handle touch start for gesture detection
-        if (gestureZone) {
-            gestureZone.addEventListener('touchstart', function(event) {
-                touchStartX = event.changedTouches[0].screenX;
-                touchStartY = event.changedTouches[0].screenY;
-            }, false);
-            
-            // Handle touch end for gesture detection
-            gestureZone.addEventListener('touchend', function(event) {
-                touchEndX = event.changedTouches[0].screenX;
-                touchEndY = event.changedTouches[0].screenY;
-                handleSwipe();
-            }, false);
-        }
-        
-        // Process swipe gesture
-        function handleSwipe() {
-            const deltaX = touchEndX - touchStartX;
-            const deltaY = touchEndY - touchStartY;
-            
-            // Minimum swipe distance (in pixels)
-            const minSwipeDistance = 50;
-            
-            // Check if it's a horizontal swipe (more horizontal than vertical)
-            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
-                // Get current active tab
-                const activeDockItem = document.querySelector('.dock-item.active');
-                const currentTab = activeDockItem.dataset.tab;
-                let nextTab = '';
-                
-                // Determine next tab based on swipe direction
-                if (deltaX > 0) {
-                    // Swipe right - go to previous tab
-                    showGestureHint("← Swiped right");
-                    if (currentTab === 'projects') nextTab = 'home';
-                    else if (currentTab === 'about') nextTab = 'projects';
-                } else {
-                    // Swipe left - go to next tab
-                    showGestureHint("→ Swiped left");
-                    if (currentTab === 'home') nextTab = 'projects';
-                    else if (currentTab === 'projects') nextTab = 'about';
-                }
-                
-                // Switch tab if nextTab is determined
-                if (nextTab) {
-                    switchTab(nextTab);
-                }
-            }
-            
-            // Reset touch coordinates
-            touchStartX = 0;
-            touchStartY = 0;
-            touchEndX = 0;
-            touchEndY = 0;
-        }
-        
-        // Event listeners for dock items (tab switching)
-        dockItems.forEach(item => {
-            item.addEventListener('click', function(e) {
+
+        document.getElementById('logoutBtn').onclick = () => auth.signOut();
+
+        // Tab Navigation
+        const dockBtns = document.querySelectorAll('.dock-btn');
+        dockBtns.forEach(btn => {
+            btn.onclick = (e) => {
                 e.preventDefault();
-                const tabId = this.dataset.tab;
-                switchTab(tabId);
-            });
+                const tabId = btn.getAttribute('data-tab');
+                const title = btn.getAttribute('data-title');
+                
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+                
+                dockBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                document.getElementById('headerTitle').innerText = title;
+            };
         });
-        
-        // ==================== INITIALIZE PAGE ====================
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeProjects();
-            
-            // Add some interactivity to contact cards
-            const contactCards = document.querySelectorAll('.contact-card');
-            contactCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    this.style.transform = 'translateY(-8px) scale(1.02)';
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(-5px)';
-                    }, 150);
-                });
-            });
-        });
+
+        // Project Generator
+        function loadProjects() {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = '';
+            for (let i = 1; i <= 12; i++) {
+                grid.innerHTML += `
+                    <div class="app-card">
+                        <div class="app-icon-img">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="app-name">Project ${i}</div>
+                        <div class="app-meta">v1.0.4</div>
+                        <div style="margin-top:10px; background:var(--ios-accent); color:white; font-size:12px; padding:4px 12px; border-radius:10px; font-weight:bold;">GET</div>
+                    </div>
+                `;
+            }
+        }
     </script>
 </body>
 </html>
